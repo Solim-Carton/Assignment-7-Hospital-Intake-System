@@ -1,0 +1,10 @@
+Design Memo
+
+For the doctor tree I used a binary tree because each doctor has two reports at most and every subtree is just a smaller version of the whole tree, so recursion works really well.
+The three traversals each give a different view. Preorder lists a manager first and then their people, which is good for an org chart. Inorder goes left, manager, right. 
+Honestly it's not that useful for an org chart, but it's the normal way to read a tree left to right. Postorder lists everyone's reports before the manager, so it fits things like a manager signing off after their whole team is done. 
+For insert, I search the tree for the parent by name. If the parent doesn't exist, the side is invalid, or that side is already taken, it just says so and returns False instead of overwriting anyone.
+
+For the ER queue I used a min-heap. A normal queue goes by arrival time, which is a bad idea when someone is in serious trouble. A sorted list would work, but every insert takes O(n) time. 
+A heap gives O(1) peek and O(log n) for insert and remove, since each one only moves a patient up or down a single path. I stored it in a plain Python list and used index math to find parents and children, so I didn't need extra node classes. 
+One downside is that patients with the same urgency might not be seen in the order they arrived. I could fix that by adding an arrival counter as a tie-breaker.
